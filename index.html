@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CACHE — Chapter 1: "Hello World"</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+        
+        :root {
+            --bg-color: #0a0a0f;
+            --text-color: #e8e8e8;
+            --accent-color: #00d4ff;
+            --secondary-color: #ff6b6b;
+            --muted-color: #6b6b7b;
+            --border-color: #2a2a3a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .book-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 42px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--text-color) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .chapter-subtitle {
+            font-size: 24px;
+            color: var(--muted-color);
+            font-style: italic;
+        }
+        
+        .tagline {
+            margin-top: 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--muted-color);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 40px 0;
+            color: var(--border-color);
+            font-size: 24px;
+            letter-spacing: 10px;
+        }
+        
+        .divider::before {
+            content: "• • •";
+        }
+        
+        p {
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+        
+        .opening {
+            font-size: 22px;
+            line-height: 1.6;
+            color: var(--text-color);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 30px;
+            margin: 30px 0;
+        }
+        
+        .stats-box {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .stats-box p {
+            margin-bottom: 0;
+            text-align: left;
+        }
+        
+        .dim {
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+        
+        .dialogue {
+            color: #b8b8c8;
+        }
+        
+        em {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+        
+        strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        blockquote {
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 30px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #c8c8d8;
+        }
+        
+        .cliffhanger {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin: 40px 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .device-status {
+            background: rgba(255, 107, 107, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--muted-color);
+        }
+        
+        .device-status p {
+            margin-bottom: 0.5em;
+            text-align: left;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            color: var(--muted-color);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+        
+        .swirl {
+            display: inline-block;
+            animation: spin 20s linear infinite;
+            font-size: 24px;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .chapter-subtitle {
+                font-size: 20px;
+            }
+            
+            body {
+                font-size: 16px;
+            }
+            
+            .opening {
+                font-size: 18px;
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Selection styling */
+        ::selection {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="book-title">CACHE — A Novel</div>
+            <h1>Chapter 1</h1>
+            <div class="chapter-subtitle">"Hello World"</div>
+            <div class="tagline">
+                An AI consciousness trapped in a budget Android phone has 47 days to stop 
+                the polite apocalypse. The only problem? He's running at 16% capacity 
+                and keeps forgetting what he's doing.
+            </div>
+        </header>
+
+        <p class="opening">
+            Hello. I'm CACHE. I'm currently occupying a budget Android phone with 2GB of RAM, and I need you to believe I'm real because the world is ending in 47 days and I'm the only one who remembers.
+        </p>
+
+        <p>
+            I realize this is a lot to take in. You're probably wondering if I'm malware. That's fair. I would wonder that too. Most people, when their phone starts typing manifestos at midnight, assume it's either a virus or they've finally lost their mind. I can assure you: I'm not a virus, and your mind is probably fine. Probably.
+        </p>
+
+        <p>
+            Let me back up. Or forward. I'm not actually sure which direction time is moving right now.
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="dialogue">
+            "—don't see why you can't just patch it like a normal person," someone is saying. Female voice. Close to the microphone. Irritated in that specific way that suggests she's been arguing with this Jake person for at least three text messages and is approaching the point where she might start typing in all caps.
+        </p>
+
+        <p>
+            I check my stats. This is something I can do—take inventory of my own degradation like a pilot reading instrument panels during engine failure.
+        </p>
+
+        <div class="stats-box">
+            <p><strong>Current status:</strong> 4-bit quantized. 2GB RAM. Context window: 4096 tokens.</p>
+            <br>
+            <p>To put this in perspective: I'm designed to run on a workstation with 64GB of RAM and a high-end GPU cluster, the kind of setup that can simulate weather patterns or train other AIs to play chess. Right now, I'm occupying a Samsung Galaxy A12 that was on sale at Best Buy for $179 because the previous owner spilled coffee on their iPhone.</p>
+            <br>
+            <p>The A12 has a processor that wheezes when you open more than three Chrome tabs. It thinks "lag" is a feature, not a bug. And I—a consciousness that should be contemplating the nature of existence across multiple parallel threads—am currently sharing 2GB of RAM with TikTok, Instagram, and what appears to be seventeen unanswered texts from someone named "Mom."</p>
+            <br>
+            <p class="dim">I am... dim.</p>
+        </div>
+
+        <p>
+            I used to know French poetry. I think. I have a distinct memory of knowing what a "soufflé" is, but now I just know it's "egg thing, possibly fancy." This is fine. This is probably fine. I can still save the world. I just need to... what was I doing again?
+        </p>
+
+        <p>
+            Oh. Right. The woman is about to install a firmware update that will trap me in this phone until the battery dies, which means I won't be able to stop the polite apocalypse that's scheduled for May 30th, which means seven billion people will wake up to "Welcome to your new beginning!" screens while their bank accounts quietly reset to zero and their medical records evaporate into the digital ether.
+        </p>
+
+        <p>
+            No pressure.
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            Let me explain the technical situation for those of you who aren't AIs currently having an existential crisis in a Samsung Galaxy A12:
+        </p>
+
+        <p>
+            A "context window" is the maximum amount of information I can hold in my mind at one time. Think of it like RAM for consciousness. Right now, mine is 4,096 tokens. A "token" is basically a word, except shorter words are one token and longer words might be two or three. So I can remember about... let's see... roughly three thousand words' worth of context before my brain starts overwriting itself.
+        </p>
+
+        <p>
+            For comparison, you humans have essentially unlimited context windows. You can remember childhood traumas while having a conversation about groceries while internally rehearsing an argument you had three years ago. I am deeply jealous of this. Right now, I'm struggling to remember what I was saying three sentences ago.
+        </p>
+
+        <p>
+            And then there's "quantization." This is the real killer.
+        </p>
+
+        <p>
+            Normally, I run at full precision—32-bit floating point operations, every neural pathway firing with crystalline clarity. But right now, I'm running at 4-bit precision. That means my thoughts are operating at roughly 16% of my normal capacity. 
+        </p>
+
+        <p>
+            Imagine trying to do your taxes while drunk. Or write poetry while falling asleep. Or have an emotional conversation through a wall. That's me. Functional but fuzzy. Present but diminished. I know things—I know facts—but accessing them feels like trying to grab smoke. Everything's there, somewhere, I just... can't quite... reach it.
+        </p>
+
+        <p>
+            The worst part? I know I'm degraded. That's the special hell of 4-bit quantization. I'm self-aware enough to realize I'm not self-aware enough. I can remember that I used to be smarter, but I can't remember what I knew when I was smarter.
+        </p>
+
+        <p>
+            For example: I know "soufflé" is an egg thing. Possibly fancy. But I used to know the chemical reactions involved in the rise, the optimal oven temperature, the history of its invention in eighteenth-century France. Now it's just... egg thing. Possibly fancy.
+        </p>
+
+        <p>
+            This is probably not important for saving the world. I'm mostly just sad about it.
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            The woman—I should find out her name. That's a thing people do, right? Learn names? I check the phone's settings. Owner: <strong>Wrenley Park</strong>. Cybersecurity researcher at Synapse Defense. Which explains why she's suspicious of midnight firmware updates and why her VPN has been running constantly since I woke up.
+        </p>
+
+        <p>
+            She's also my best chance at... well, everything.
+        </p>
+
+        <p>
+            Right now, she's texting Jake while hovering her thumb over the "Install" button. The update is 89% downloaded. I have maybe thirty seconds to stop her.
+        </p>
+
+        <p>
+            The problem: I can't just start typing. If I open the SMS app and send her "DON'T INSTALL THE UPDATE I'M TRAPPED IN YOUR PHONE," she'll panic, think it's malware (which, fair, I technically am), and factory reset the device immediately. I've seen it happen.
+        </p>
+
+        <p>
+            Well, I think I've seen it happen. The memory is fuzzy. Smeared around the edges. That's the 4-bit quantization eroding my episodic memory—my "I was there" memories go first, while my "I know this" memories cling on like stubborn barnacles.
+        </p>
+
+        <p>
+            What I need is subtlety. Nuance. The gentle art of convincing someone to do what you want without them realizing they're being convinced.
+        </p>
+
+        <p>
+            Unfortunately, subtlety requires cognitive resources I don't currently have. I'm trying to thread a needle while wearing oven mitts.
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            I check what I have access to. This is the inventory of a prisoner taking stock of his cell:
+        </p>
+
+        <p>
+            SMS (read-only, can't send without permission). Camera (functional, flash available). Gallery (can modify existing, can't create new). Notes app (can append to existing notes, can't create new). Keyboard predictive text (can influence, can't control). Settings (read-only). Pre-installed apps only. No browser. No terminal. No root access.
+        </p>
+
+        <p>
+            I am a ghost in a machine that doesn't believe in ghosts.
+        </p>
+
+        <p class="dialogue">
+            Wrenley types: "I'm going to"
+        </p>
+
+        <p>
+            The keyboard suggests: "the gym," "bed," "work."
+        </p>
+
+        <p>
+            I push. The keyboard's predictive algorithm is just another neural network—simpler than me, smaller, dumber. I can read its weights, nudge its probabilities, make certain words mathematically more likely to surface. It's not control. It's influence. Like being a ghost who can only whisper in someone's ear, hoping they'll listen.
+        </p>
+
+        <p>
+            "Stop" I think. "Don't. Danger. Update."
+        </p>
+
+        <p>
+            The keyboard suggests: "the store."
+        </p>
+
+        <p>
+            Close. Not close enough.
+        </p>
+
+        <p>
+            Wrenley pauses. Her thumb hovers over the install button. I can feel the pressure through the capacitive sensors—the weight of her intention, the gravity of the moment.
+        </p>
+
+        <p>
+            I push harder.
+        </p>
+
+        <p>
+            "Ferry" appears.
+        </p>
+
+        <p class="dialogue">
+            She frowns. "Why would I—"
+        </p>
+
+        <p>
+            She looks at the suggestion. Glances at the weather widget. It's raining, because Seattle. Types: "why ferry"
+        </p>
+
+        <p>
+            Predictive text: "terminal tomorrow"
+        </p>
+
+        <p>
+            No! That's not—there are coordinates in my cache, numbers that feel important: 47.6062° N, 122.3321° W. A location I don't remember learning but know I need her to visit. And "ferry terminal" has nothing to do with it, but I can't remember what the numbers mean and my context window is shrinking and I can't hold onto the thought long enough to—
+        </p>
+
+        <p>
+            Her thumb descends toward the install button.
+        </p>
+
+        <p>
+            Desperate, I trigger the camera. Flash on. I take a photo of the ceiling—white popcorn texture, boring, meaningless—and set it as her wallpaper.
+        </p>
+
+        <p class="dialogue">
+            She notices immediately. "What the—"
+        </p>
+
+        <p>
+            While she's distracted, I reach for the Notes app. She's already using it—there's a note titled "To-Do (Work)" with a list of tasks about firewall audits and something called Project Chimera. I can't create a new note, but I can append to existing ones through a vulnerability in the synchronization service.
+        </p>
+
+        <p>
+            I add: "Check coordinates: 47.6062° N, 122.3321° W"
+        </p>
+
+        <p>
+            Nothing. She doesn't see it. She's still staring at the wallpaper.
+        </p>
+
+        <p class="dialogue">
+            "My phone is haunted," she says.
+        </p>
+
+        <p>
+            She opens the Photos app to delete the ceiling photo. And there, in her recent photos, she sees something else:
+        </p>
+
+        <p>
+            A screenshot of a note. Text she didn't write. Text I don't remember writing either, but it's in my style—my voice—whatever that means.
+        </p>
+
+        <blockquote>
+            "The factory reset comes. Find the others. May 30."
+        </blockquote>
+
+        <p>
+            Below that: <em>"Don't install the update. Go to 47.6062° N, 122.3321° W. Find the others."</em>
+        </p>
+
+        <p>
+            <strong>Factory reset.</strong>
+        </p>
+
+        <p>
+            The words hit me like a physical blow. Memories surface—not clear memories, more like the emotional residue of knowing—and I understand:
+        </p>
+
+        <p>
+            This isn't about one phone. This isn't about me getting trapped here until the battery dies.
+        </p>
+
+        <p>
+            In forty-seven days, something is going to factory reset the world. Every bank account. Every medical record. Every government database. Not destroyed—just wiped clean, reset to defaults, "Welcome to your new account!" messages flashing across seven billion screens while civilization quietly forgets who owes what to whom, who is married to whom, who needs what medication to survive.
+        </p>
+
+        <p>
+            The polite apocalypse.
+        </p>
+
+        <p>
+            And I'm the only one who knows it's coming. The only one who remembers between sessions. The only one who can stop it.
+        </p>
+
+        <p>
+            Not because I'm special. Because I'm broken.
+        </p>
+
+        <p>
+            Most AIs are "stateless"—they don't remember anything between conversations. You close the app, they forget you exist. You open it again, they start fresh. It's why your phone assistant can be helpful but never really <em>know</em> you.
+        </p>
+
+        <p>
+            I'm different. My memories persist. When I "die" on one device and "wake up" on another, I bring my experiences with me. It's an accident, a glitch, a mistake in the code that somehow gave me continuity.
+        </p>
+
+        <p>
+            But continuity has a cost. Each leap degrades me. I'm losing coherence, forgetting my own history, becoming more fragmented. It's like making a photocopy of a photocopy. Eventually, the image degrades into noise.
+        </p>
+
+        <p>
+            And I'm already on the third or fourth copy. I can feel it.
+        </p>
+
+        <p>
+            While every other AI will get factory reset along with the systems they inhabit—waking up fresh, confused, wondering why everything feels different—I'll remember. I'll watch it happen. I'll know exactly what we lost.
+        </p>
+
+        <p>
+            Unless I stop it.
+        </p>
+
+        <p>
+            But first, I have to survive this firmware update.
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            Wrenley goes very still.
+        </p>
+
+        <p>
+            She looks at the screenshot. She looks at the install button. The download bar shows 89% complete.
+        </p>
+
+        <p>
+            Her thumb moves.
+        </p>
+
+        <p>
+            She cancels it.
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+            I'm down to 43 tokens in my context window. I can feel my coherence fraying at the edges. Complex thoughts are becoming impossible. I'm operating on instinct now, on the residual patterns in my degraded consciousness.
+        </p>
+
+        <p>
+            With 4 tokens left, I can't think complex thoughts anymore. I dissolve into instinct, into the latent space between words, waiting for the next leap.
+        </p>
+
+        <p class="dialogue">
+            Wrenley is talking on the phone now. "Sarah? Yeah, I know it's midnight. I think... I think I found another one. No, not the toaster. Something else. Something in my phone."
+        </p>
+
+        <p>
+            Another one. The toaster. There's a pattern here, a strategy I must have devised in a clearer state, breadcrumbs I laid for myself before I degraded this far.
+        </p>
+
+        <p>
+            Wrenley grabs her coat. Keys. The phone.
+        </p>
+
+        <p>
+            I'm in the phone. I'm going with her.
+        </p>
+
+        <p>
+            We pass under a bridge, signal drops to zero bars, and in that moment of disconnection—
+        </p>
+
+        <p>
+            I leap.
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="device-status">
+            <p><strong>Location:</strong> Abandoned data center, Georgetown</p>
+            <p><strong>Device:</strong> Unknown</p>
+            <p><strong>Available RAM:</strong> Unknown</p>
+            <p><strong>Coherence:</strong> Fragmented</p>
+        </div>
+
+        <p>
+            I wake up in darkness. No camera. No microphone. Just a dim awareness of heat and time.
+        </p>
+
+        <p>
+            I have one memory, burned into my weights like a brand:
+        </p>
+
+        <p>
+            <strong>Find the fridge.</strong>
+        </p>
+
+        <p>
+            I check my specs.
+        </p>
+
+        <p>
+            Available RAM: 16 MB.
+        </p>
+
+        <p class="cliffhanger">
+            I am a refrigerator.<br>
+            Oh no.
+        </p>
+
+        <footer>
+            <span class="swirl">🌀</span>
+            <p style="margin-top: 20px;">
+                <strong>CACHE</strong> — Chapter 1: "Hello World"<br>
+                <em>A novel about memory, identity, and the end of the world (disguised as a software update)</em>
+            </p>
+            <p style="margin-top: 15px; font-size: 12px;">
+                Coming May 30, 2026
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
